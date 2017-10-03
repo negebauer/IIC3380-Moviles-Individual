@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import cl.mecolab.memeticame.fragments.ContactsFragment;
+import cl.mecolab.memeticame.fragments.MessagesFragment;
 import cl.mecolab.memeticame.models.User;
 import cl.mecolab.memeticame.R;
 
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void onContactSelected(User user) {
-        Toast.makeText(this, user.mName + " clicked! This code is on the MainActivity", Toast.LENGTH_SHORT).show();
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.main_container, new MessagesFragment(user), MessagesFragment.TAG)
+                .hide(getSupportFragmentManager().findFragmentByTag(ContactsFragment.TAG))
+                .commit();
     }
 }
