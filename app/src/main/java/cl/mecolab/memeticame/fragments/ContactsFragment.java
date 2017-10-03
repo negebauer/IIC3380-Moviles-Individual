@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,10 @@ import cl.mecolab.memeticame.views.ContactsAdapter;
  * A simple {@link Fragment} subclass.
  */
 public class ContactsFragment extends Fragment {
+
+    Handler h = new Handler();
+    int delay = 15000; //15 seconds
+    Runnable runnable;
 
     public static final String TAG = "contacts_fragment";
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 101;
@@ -68,7 +73,31 @@ public class ContactsFragment extends Fragment {
 
         getContacts();
         setHasOptionsMenu(true);
+        startRunnable();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getContacts();
+        startRunnable();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        h.removeCallbacks(runnable);
+    }
+
+    private void startRunnable() {
+        h.postDelayed(new Runnable() {
+            public void run() {
+                getContacts();
+                runnable=this;
+                h.postDelayed(runnable, delay);
+            }
+        }, delay);
     }
 
     /**

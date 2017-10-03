@@ -1,6 +1,7 @@
 package cl.mecolab.memeticame.networking;
 
 import android.content.Context;
+import android.os.Handler;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -59,7 +60,7 @@ public class RequestManager {
         final Map<String, String> headers = new HashMap<>();
         headers.put("Content-type", "application/json");
         // TODO: You will have to use the token received on the login/signup request call :)
-        headers.put("Authorization", "Token token=" + "MDEjiwWnJjecLsGnvF7KDw");
+        headers.put("Authorization", "Token token=" + "HruwrszQbFqeiHLfeXqe3g");
 
         HashMap<String, JSONObject> body = new HashMap<>();
         HashMap<String, String> phone_numbers = new HashMap<>();
