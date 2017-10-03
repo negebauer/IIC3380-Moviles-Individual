@@ -1,0 +1,226 @@
+{
+  "project_info": {
+    "project_number": "422588374532",
+    "firebase_url": "https://memeticame-8d711.firebaseio.com",
+    "project_id": "memeticame-8d711",
+    "storage_bucket": "memeticame-8d711.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422588374532:android:9f6f876d1c59c130",
+        "android_client_info": {
+          "package_name": "MemeticaMe.Xamarin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422588374532-0jsvblov6v69pi5ciggmn04911ja900k.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-4gih2jspqf6ji0b2pmfte3m107m2b5mn.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-6g59kcum9jnfvp8suc5j8rbui068mp2a.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-0fq138lcqvo5kmj9kf7a4qeu3jq943t1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqhfjVUwoA_e_kSoK1iEb6idINFeciXLA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422588374532:android:673ab404831cb83a",
+        "android_client_info": {
+          "package_name": "com.mecolab.memeticameandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422588374532-0jsvblov6v69pi5ciggmn04911ja900k.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-4gih2jspqf6ji0b2pmfte3m107m2b5mn.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-6g59kcum9jnfvp8suc5j8rbui068mp2a.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-0fq138lcqvo5kmj9kf7a4qeu3jq943t1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqhfjVUwoA_e_kSoK1iEb6idINFeciXLA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422588374532:android:18ba01103acffc7c",
+        "android_client_info": {
+          "package_name": "com.mecolab.guasapuc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422588374532-0jsvblov6v69pi5ciggmn04911ja900k.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-4gih2jspqf6ji0b2pmfte3m107m2b5mn.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-6g59kcum9jnfvp8suc5j8rbui068mp2a.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-0fq138lcqvo5kmj9kf7a4qeu3jq943t1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqhfjVUwoA_e_kSoK1iEb6idINFeciXLA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422588374532:android:99bcf950d2af1bfe",
+        "android_client_info": {
+          "package_name": "cl.mecolab.memeticame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422588374532-0jsvblov6v69pi5ciggmn04911ja900k.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-4gih2jspqf6ji0b2pmfte3m107m2b5mn.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-6g59kcum9jnfvp8suc5j8rbui068mp2a.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-0fq138lcqvo5kmj9kf7a4qeu3jq943t1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqhfjVUwoA_e_kSoK1iEb6idINFeciXLA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422588374532:android:05c8cc4ec5096dad",
+        "android_client_info": {
+          "package_name": "com.salatart.memeticame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422588374532-0jsvblov6v69pi5ciggmn04911ja900k.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-4gih2jspqf6ji0b2pmfte3m107m2b5mn.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-6g59kcum9jnfvp8suc5j8rbui068mp2a.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "422588374532-0fq138lcqvo5kmj9kf7a4qeu3jq943t1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqhfjVUwoA_e_kSoK1iEb6idINFeciXLA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
