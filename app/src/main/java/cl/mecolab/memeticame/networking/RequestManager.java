@@ -10,6 +10,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
@@ -31,6 +32,9 @@ import cl.mecolab.memeticame.models.User;
 
 public class RequestManager {
     private static String TOKEN = "HruwrszQbFqeiHLfeXqe3g";
+    private static String PHONE_NUMBER = "+56962448489";
+
+    private HashMap<String, Boolean> creatingGroup = new HashMap<>();
 
     private static RequestManager sInstance;
     private RequestQueue mRequestQueue;
@@ -132,9 +136,6 @@ public class RequestManager {
         headers.put("Content-type", "application/json");
         headers.put("Authorization", "Token token=" + TOKEN);
 
-        HashMap<String, JSONObject> body = new HashMap<>();
-        HashMap<String, String> phone_numbers = new HashMap<>();
-
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
                 "http://mcctrack3.ing.puc.cl/chats",
@@ -145,21 +146,78 @@ public class RequestManager {
                         ArrayList<Message> msgs = new ArrayList<>();
                         for (int i = 0; i < response.length(); i++) {
                             try {
-                                    JSONObject jChat = response.getJSONObject(i);
-                                    Chat chat = new Chat.Builder()
-                                            .id(jChat.getInt("id"))
-                                            .title(jChat.getString("title"))
-                                            .group(jChat.getBoolean("group"))
-                                            .users(jChat.getJSONArray("users"))
-                                            .messages(jChat.getJSONArray("messages"))
-                                            .build();
+                                JSONObject jChat = response.getJSONObject(i);
+                                Chat chat = new Chat.Builder()
+                                        .id(jChat.getInt("id"))
+                                        .title(jChat.getString("title"))
+                                        .group(jChat.getBoolean("group"))
+                                        .users(jChat.getJSONArray("users"))
+                                        .messages(jChat.getJSONArray("messages"))
+                                        .build();
 
-                                    if (!chat.mGroup && (chat.mUsers.get(0).mId == user.mId || chat.mUsers.get(1).mId == user.mId)) {
-                                        listener.success(chat);
-                                        return;
-                                    }
-                                } catch (JSONException e) { }
+                                if (!chat.mGroup && chat.mUsers.size() == 2 &&
+                                        (chat.mUsers.get(0).mId == user.mId || chat.mUsers.get(1).mId == user.mId)) {
+                                    listener.success(chat);
+                                    return;
+                                }
+                            } catch (JSONException e) { }
                         }
+                        // No chat, lets create it
+                        if (creatingGroup.containsKey(user.mPhoneNumber) &&  creatingGroup.get(user.mPhoneNumber)) { return; }
+                        creatingGroup.put(user.mPhoneNumber, true);
+                        HashMap<String, String> users = new HashMap<>();
+                        users.put("1", user.mPhoneNumber);
+                        HashMap<String, Object> body = new HashMap<>();
+                        body.put("admin", PHONE_NUMBER);
+                        body.put("group", false);
+                        body.put("title", "Chat with " + user.mName);
+                        body.put("users", users);
+
+                        JSONObject jsonBody = new JSONObject(body);
+                        JsonObjectRequest request2 = new JsonObjectRequest(
+                                Request.Method.POST,
+                                "http://mcctrack3.ing.puc.cl/chats",
+                                jsonBody,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            JSONObject jsonChat = response;
+                                            Chat chat = new Chat.Builder()
+                                                    .id(jsonChat.getInt("id"))
+                                                    .title(jsonChat.getString("title"))
+                                                    .group(jsonChat.getBoolean("group"))
+                                                    .users(jsonChat.getJSONArray("users"))
+                                                    .messages(jsonChat.getJSONArray("messages"))
+                                                    .build();
+
+                                            creatingGroup.put(user.mPhoneNumber, false);
+                                            listener.success(chat);
+                                            return;
+
+                                        } catch (JSONException e) { }
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        creatingGroup.put(user.mPhoneNumber, false);
+                                        listener.error(error.getMessage());
+                                    }
+                                }) {
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                return headers;
+                            }
+                        };
+
+                        // The request is a bit slow, so the timeout time will be 5 secs
+                        request2.setRetryPolicy(new DefaultRetryPolicy(5000,
+                                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+                        // Add the request to the queue to execute it
+                        mRequestQueue.add(request2);
                     }
                 },
                 new Response.ErrorListener() {
@@ -168,6 +226,35 @@ public class RequestManager {
                         listener.error(error.getMessage());
                     }
                 }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                return headers;
+            }
+        };
+
+        // The request is a bit slow, so the timeout time will be 5 secs
+        request.setRetryPolicy(new DefaultRetryPolicy(5000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        // Add the request to the queue to execute it
+        mRequestQueue.add(request);
+    }
+
+    public void sendMessage(String message, Chat chat) {
+        final Map<String, String> headers = new HashMap<>();
+        headers.put("Content-type", "application/json");
+        headers.put("Authorization", "Token token=" + TOKEN);
+
+        HashMap<String, Object> body = new HashMap<>();
+        body.put("content", message);
+        JSONObject jsonBody = new JSONObject(body);
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST,
+                "http://mcctrack3.ing.puc.cl/chats/" + chat.mId + "/messages",
+                jsonBody,
+                null, null) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return headers;

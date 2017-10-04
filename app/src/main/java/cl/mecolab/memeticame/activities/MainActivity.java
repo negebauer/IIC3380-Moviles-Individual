@@ -3,6 +3,8 @@ package cl.mecolab.memeticame.activities;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import cl.mecolab.memeticame.fragments.ContactsFragment;
@@ -12,6 +14,8 @@ import cl.mecolab.memeticame.R;
 
 public class MainActivity extends AppCompatActivity implements
         ContactsFragment.OnContactSelected {
+
+    private MessagesFragment messagesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +30,6 @@ public class MainActivity extends AppCompatActivity implements
                     new ContactsFragment(), ContactsFragment.TAG);
             transaction.commit();
         }
-
-        System.out.print("ASDADS");
-        System.out.print("ASDADS");
-        System.out.print("ASDADS");
-        System.out.print("ASDADS");
-        System.out.print("ASDADS");
-        System.out.print("ASDADS");
     }
 
     /**
@@ -41,8 +38,9 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void onContactSelected(User user) {
+        messagesFragment = new MessagesFragment(user);
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.main_container, new MessagesFragment(user), MessagesFragment.TAG)
+                .add(R.id.main_container, messagesFragment, MessagesFragment.TAG)
                 .hide(getSupportFragmentManager().findFragmentByTag(ContactsFragment.TAG))
                 .commit();
     }

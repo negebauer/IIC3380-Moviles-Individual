@@ -36,7 +36,7 @@ import cl.mecolab.memeticame.views.ContactsAdapter;
 public class ContactsFragment extends Fragment {
 
     Handler h = new Handler();
-    int delay = 15000; //15 seconds
+    int delay = 10000; //15 seconds
     Runnable runnable;
 
     public static final String TAG = "contacts_fragment";

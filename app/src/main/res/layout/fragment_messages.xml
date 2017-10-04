@@ -4,10 +4,22 @@
     android:layout_height="match_parent"
     tools:context="cl.mecolab.memeticame.fragments.MessagesFragment">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="Enviar"
+        android:id="@+id/button_send"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="" />
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/messages_list_view"
-        />
+        android:id="@+id/messages_list_view" />
 
 </LinearLayout>

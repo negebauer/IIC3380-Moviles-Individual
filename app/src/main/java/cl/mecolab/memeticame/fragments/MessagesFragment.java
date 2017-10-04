@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ import cl.mecolab.memeticame.views.MessagesAdapter;
 public class MessagesFragment extends Fragment {
 
     Handler h = new Handler();
-    int delay = 15000; //15 seconds
+    int delay = 10000; //15 seconds
     Runnable runnable;
 
     public static final String TAG = "messages_fragment";
@@ -62,6 +63,22 @@ public class MessagesFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_messages, container, false);
 
         mMessagesListView = (ListView) view.findViewById(R.id.messages_list_view);
+        final Button button = (Button) view.findViewById(R.id.button_send);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                if (mChat == null) { return; }
+                String message = button.getText().toString();
+                button.setText("");
+                RequestManager.getInstance().sendMessage(message, mChat);
+                try {
+                    wait(1000);                 //1000 milliseconds is one second.
+                    getMessages();
+                } catch(InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        });
 
         getMessages();
         setHasOptionsMenu(true);
