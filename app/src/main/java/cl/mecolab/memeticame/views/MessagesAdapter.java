@@ -24,7 +24,7 @@ import cl.mecolab.memeticame.models.User;
  */
 public class MessagesAdapter extends ArrayAdapter<Message> {
     private final User mUser;
-    private ArrayList<Message> mMessages;
+    public ArrayList<Message> mMessages;
     private final LayoutInflater mLayoutInflater;
 
     public MessagesAdapter(Context context, int resource, ArrayList<Message> messages, User user) {

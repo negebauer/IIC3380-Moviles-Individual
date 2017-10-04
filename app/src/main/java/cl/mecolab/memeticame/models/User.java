@@ -1,9 +1,12 @@
 package cl.mecolab.memeticame.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Andres Matte.
  */
-public class User {
+public class User implements Parcelable {
     public final Integer mId;
     public final String mName;
     public final String mPhoneNumber;
@@ -38,4 +41,40 @@ public class User {
             return new User(mId, mName, mPhoneNumber);
         }
     }
+
+    protected User(Parcel in) {
+        mId = in.readByte() == 0x00 ? null : in.readInt();
+        mName = in.readString();
+        mPhoneNumber = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (mId == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(mId);
+        }
+        dest.writeString(mName);
+        dest.writeString(mPhoneNumber);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 }

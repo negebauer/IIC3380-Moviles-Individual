@@ -36,7 +36,7 @@ import cl.mecolab.memeticame.views.ContactsAdapter;
 public class ContactsFragment extends Fragment {
 
     Handler h = new Handler();
-    int delay = 10000; //15 seconds
+    int delay = 3000;
     Runnable runnable;
 
     public static final String TAG = "contacts_fragment";
@@ -73,14 +73,12 @@ public class ContactsFragment extends Fragment {
 
         getContacts();
         setHasOptionsMenu(true);
-        startRunnable();
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getContacts();
         startRunnable();
     }
 
@@ -129,11 +127,13 @@ public class ContactsFragment extends Fragment {
         RequestManager.getInstance().getRegisteredUsers(contacts, new RequestManager.OnGetRegisteredUsers() {
             @Override
             public void success(ArrayList<User> contacts) {
+                Context context = getContext();
+                if (context == null) { return; }
                 if (contacts.size() == 0) {
-                    Toast.makeText(getContext(), "Any of your contacts has an account!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Any of your contacts has an account!", Toast.LENGTH_SHORT).show();
                 }
                 mContacts = contacts;
-                mAdapter = new ContactsAdapter(getContext(), R.layout.contact_list_item, mContacts);
+                mAdapter = new ContactsAdapter(context, R.layout.contact_list_item, mContacts);
                 mContactsListView.setAdapter(mAdapter);
             }
 

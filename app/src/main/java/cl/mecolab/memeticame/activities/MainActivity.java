@@ -1,5 +1,6 @@
 package cl.mecolab.memeticame.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -38,10 +39,8 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void onContactSelected(User user) {
-        messagesFragment = new MessagesFragment(user);
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.main_container, messagesFragment, MessagesFragment.TAG)
-                .hide(getSupportFragmentManager().findFragmentByTag(ContactsFragment.TAG))
-                .commit();
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("user", user);
+        startActivity(intent);
     }
 }

@@ -41,7 +41,7 @@ import cl.mecolab.memeticame.views.MessagesAdapter;
 public class MessagesFragment extends Fragment {
 
     Handler h = new Handler();
-    int delay = 10000; //15 seconds
+    int delay = 3000;
     Runnable runnable;
 
     public static final String TAG = "messages_fragment";
@@ -79,20 +79,24 @@ public class MessagesFragment extends Fragment {
 
         getMessages();
         setHasOptionsMenu(true);
-        startRunnable();
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getMessages();
         startRunnable();
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        h.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
         h.removeCallbacks(runnable);
     }
 
@@ -122,13 +126,16 @@ public class MessagesFragment extends Fragment {
         RequestManager.getInstance().getChat(mUser, new RequestManager.OnGetChat() {
             @Override
             public void success(Chat chat) {
+                Context context = getContext();
+                if (context == null) { return; }
                 if (chat.mMessages.size() == 0) {
-                    Toast.makeText(getContext(), "No messages yet", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "No messages yet", Toast.LENGTH_SHORT).show();
                 }
                 mChat = chat;
                 mMessages = chat.mMessages;
-                mAdapter = new MessagesAdapter(getContext(), R.layout.messages_list_item, mMessages, mUser);
+                mAdapter = new MessagesAdapter(context, R.layout.messages_list_item, mMessages, mUser);
                 mMessagesListView.setAdapter(mAdapter);
+                mMessagesListView.setSelection(mAdapter.mMessages.size() - 1);
             }
 
             @Override
