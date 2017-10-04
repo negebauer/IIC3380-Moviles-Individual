@@ -13,7 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import cl.mecolab.memeticame.R;
 import cl.mecolab.memeticame.models.Message;
@@ -31,6 +34,7 @@ public class MessagesAdapter extends ArrayAdapter<Message> {
         super(context, resource, messages);
         mUser = user;
         mMessages = messages;
+        Collections.sort(mMessages);
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

@@ -1,13 +1,16 @@
 package cl.mecolab.memeticame.models;
 
+import android.support.annotation.NonNull;
+
 import org.json.JSONObject;
 
+import java.util.Comparator;
 import java.util.Date;
 
 /**
  * Created by Andres Matte.
  */
-public class Message {
+public class Message implements Comparable<Message> {
     public final Integer mId;
     public final String mSender_phone;
     public final String mContent;
@@ -21,6 +24,11 @@ public class Message {
         mContent = content;
         mChat_id = chat_id;
 //        mAttachment_link = attachment_link;
+    }
+
+    @Override
+    public int compareTo(@NonNull Message message) {
+        return mId - message.mId;
     }
 
     public static class Builder {
@@ -56,4 +64,6 @@ public class Message {
             return new Message(mId, mSender_phone, mContent, mChat_id);
         }
     }
+
+
 }
