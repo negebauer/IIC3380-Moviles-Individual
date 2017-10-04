@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -63,20 +64,16 @@ public class MessagesFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_messages, container, false);
 
         mMessagesListView = (ListView) view.findViewById(R.id.messages_list_view);
+        final EditText editText = (EditText) view.findViewById(R.id.message_send);
         final Button button = (Button) view.findViewById(R.id.button_send);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 if (mChat == null) { return; }
-                String message = button.getText().toString();
-                button.setText("");
+                String message = editText.getText().toString();
+                editText.setText("");
                 RequestManager.getInstance().sendMessage(message, mChat);
-                try {
-                    wait(1000);                 //1000 milliseconds is one second.
-                    getMessages();
-                } catch(InterruptedException ex) {
-                    Thread.currentThread().interrupt();
-                }
+                getMessages();
             }
         });
 

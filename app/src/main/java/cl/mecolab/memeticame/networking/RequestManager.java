@@ -254,7 +254,13 @@ public class RequestManager {
                 Request.Method.POST,
                 "http://mcctrack3.ing.puc.cl/chats/" + chat.mId + "/messages",
                 jsonBody,
-                null, null) {
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) { return; }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) { return; }
+            }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 return headers;
