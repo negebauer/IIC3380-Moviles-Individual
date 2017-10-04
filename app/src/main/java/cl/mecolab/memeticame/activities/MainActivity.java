@@ -26,6 +26,13 @@ public class MainActivity extends AppCompatActivity implements
                     new ContactsFragment(), ContactsFragment.TAG);
             transaction.commit();
         }
+
+        System.out.print("ASDADS");
+        System.out.print("ASDADS");
+        System.out.print("ASDADS");
+        System.out.print("ASDADS");
+        System.out.print("ASDADS");
+        System.out.print("ASDADS");
     }
 
     /**

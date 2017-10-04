@@ -1,33 +1,59 @@
 package cl.mecolab.memeticame.models;
 
+import org.json.JSONObject;
+
+import java.util.Date;
+
 /**
  * Created by Andres Matte.
  */
 public class Message {
-    public final String message = "MENSAJE";
-    public final String sender_phone = "1";
+    public final Integer mId;
+    public final String mSender_phone;
+    public final String mContent;
+    public final Integer mChat_id;
+//    public final JSONObject mAttachment_link;
+//    public final Date created_at;
 
-    public Message(String name, String phoneNumber) {
-//        mName = phoneNumber;
-//        mPhoneNumber = name;
+    private Message(Integer id, String sender_phone, String content, Integer chat_id) {
+        mId = id;
+        mSender_phone = sender_phone;
+        mContent = content;
+        mChat_id = chat_id;
+//        mAttachment_link = attachment_link;
     }
 
     public static class Builder {
-        private String mName;
-        private String mPhoneNumber;
+        private Integer mId;
+        private String mSender_phone;
+        private String mContent;
+        private Integer mChat_id;
+//        private JSONObject mAttachment_link;
 
-        public Builder name(String name) {
-            mName = name;
+        public Builder id(Integer id) {
+            mId = id;
             return this;
         }
 
-        public Builder phoneNumber(String phoneNumber) {
-            mPhoneNumber = phoneNumber;
+        public Builder sender_phone(String sender_phone) {
+            mSender_phone = sender_phone;
             return this;
         }
+        public Builder content(String content) {
+            mContent = content;
+            return this;
+        }
+        public Builder chat_id(Integer chat_id) {
+            mChat_id = chat_id;
+            return this;
+        }
+//        public Builder attachment_link(JSONObject attachment_link) {
+//            mAttachment_link = attachment_link;
+//            return this;
+//        }
 
         public Message build() {
-            return new Message(mName, mPhoneNumber);
+            return new Message(mId, mSender_phone, mContent, mChat_id);
         }
     }
 }

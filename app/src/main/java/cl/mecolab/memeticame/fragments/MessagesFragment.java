@@ -25,6 +25,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import cl.mecolab.memeticame.R;
+import cl.mecolab.memeticame.models.Chat;
 import cl.mecolab.memeticame.models.Message;
 import cl.mecolab.memeticame.models.User;
 import cl.mecolab.memeticame.networking.RequestManager;
@@ -44,14 +45,14 @@ public class MessagesFragment extends Fragment {
     public static final String TAG = "messages_fragment";
     private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 101;
 
+    private User mUser;
+    private Chat mChat;
     private ArrayList<Message> mMessages;
     private MessagesAdapter mAdapter;
     private ListView mMessagesListView;
 
-    private User user;
-
     public MessagesFragment(User user) {
-        this.user = user;
+        mUser = user;
     }
 
     @Override
@@ -104,13 +105,23 @@ public class MessagesFragment extends Fragment {
     }
 
     public void syncWithServer() {
-        mMessages = new ArrayList<Message>() {{
-            add(new Message("a","a"));
-            add(new Message("a","a"));
-            add(new Message("a","a"));
-        }};
-        mAdapter = new MessagesAdapter(getContext(), R.layout.messages_list_item, mMessages);
-        mMessagesListView.setAdapter(mAdapter);
+        RequestManager.getInstance().getChat(mUser, new RequestManager.OnGetChat() {
+            @Override
+            public void success(Chat chat) {
+                if (chat.mMessages.size() == 0) {
+                    Toast.makeText(getContext(), "No messages yet", Toast.LENGTH_SHORT).show();
+                }
+                mChat = chat;
+                mMessages = chat.mMessages;
+                mAdapter = new MessagesAdapter(getContext(), R.layout.messages_list_item, mMessages, mUser);
+                mMessagesListView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void error(String message) {
+                Toast.makeText(getContext(), "An error occurred!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
